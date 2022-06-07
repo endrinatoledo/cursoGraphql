@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon -e js,graphql index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,11 @@
   },
   "homepage": "https://github.com/endrinatoledo/cursoGraphql#readme",
   "dependencies": {
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
     "graphql": "^15.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
