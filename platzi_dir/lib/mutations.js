@@ -1,5 +1,6 @@
 'use strict'
 
+const { ObjectId } = require('mongodb')
 const connectDb = require('./db')
 
 module.exports = {
@@ -22,5 +23,56 @@ module.exports = {
     }
 
     return newCourse
+  },
+  createStudent: async (root, { input }) => {
+
+    let db
+    let student
+
+    try {
+      db = await connectDb()
+      course = await db.collection('students').insertOne(input)
+      input._id = student.insertedId
+    } catch (error) {
+      console.error(error)
+    }
+
+    return input
+  },
+  editCourse: async (root, { _id, input }) => {
+    let db
+    let course
+
+    try {
+      db = await connectDb()
+      await db.collection('courses').updateOne(
+          {_id: ObjectId(_id)},
+          {$set: input})
+        course = await db.collection('courses').findOne(
+          {_id: ObjectId(_id)}
+      )
+    } catch (error) {
+      console.error(error)
+    }
+
+    return course
+  },
+  editStudent: async (root, { _id, input }) => {
+    let db
+    let student
+
+    try {
+      db = await connectDb()
+      await db.collection('students').updateOne(
+          {_id: ObjectId(_id)},
+          {$set: input})
+          student = await db.collection('students').findOne(
+          {_id: ObjectId(_id)}
+      )
+    } catch (error) {
+      console.error(error)
+    }
+
+    return student
   }
 }
