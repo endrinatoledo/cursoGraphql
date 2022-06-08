@@ -1,32 +1,9 @@
 'use strict'
 
-const connectDb = require('./db')
-const { ObjectId } = require('mongodb');
-
+const queries = require('./queries')
+const mutations = require('./mutations')
 
 module.exports = {
-  Query: {
-    getCourses: async() => {
-      let db
-      let courses = []
-      try {
-        db = await connectDb()
-        courses = await db.collection('courses').find().toArray()
-      } catch (error) {
-        console.error('hay un error', error)
-      }
-      return courses
-    },
-    getCourse: async(root, {id}) => {
-      let db
-      let course
-      try {
-        db = await connectDb()
-        course = await db.collection('courses').findOne({_id : ObjectId(id)})
-      } catch (error) {
-        console.error('hay un error', error)
-      }
-      return course
-    }
-  }
+  Query: queries,
+  Mutation: mutations
 }
