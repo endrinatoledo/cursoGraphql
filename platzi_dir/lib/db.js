@@ -1,38 +1,26 @@
-'use strict'
+const { MongoClient } = require('mongodb');
 
-const {MongoClient} = require('mongo')
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const {
-    DB_USER,
-    DB_PASSWD,
-    DB_HOST,
-    DB_PORT,
-    DB_NAME
-} =  process.env
+const mongoUrl = `mongodb+srv://etoledo:<password>@cluster0.wpli2.mongodb.net/test`;
+let connection;
 
-const mongoURL = `mongodb://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
+async function connectDB() {
+  if (connection) return connection;
 
-let connection
+  let client;
+  try {
+    client = new MongoClient(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    connection = await client.connect();
+  } catch (error) {
+    console.error('Could not connect to db', mongoUrl, error);
+    process.exit(1);
+  }
 
-async function connectDB(){
-    if(connection) return connection
-
-    let  client
-    try {
-
-        client = await MongoClient.connect(mongoURL,{
-            useNewUrlParser : true
-        })
-        connection = client.db(DB_NAME)
-        
-    } catch (error) {
-        console.error('NO SE CONECTO',mongoURL, error)
-        process.exit(1)
-        
-    }
-
-    return connection
-
+  return connection;
 }
 
-module.exports = connectDB
+module.exports = connectDB;
