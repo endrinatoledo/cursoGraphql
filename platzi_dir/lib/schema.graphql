@@ -53,4 +53,6 @@ type Mutation {
   createStudent(input: StudentInput!) : Student
     "Editar un estudiante"
   editStudent(_id: ID!,input: StudentEditInput) : Student
+  "Eliminar un curso"
+  deleteCourse(_id: ID!) : String
 }

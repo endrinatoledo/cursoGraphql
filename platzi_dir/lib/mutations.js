@@ -74,5 +74,21 @@ module.exports = {
     }
 
     return student
+  },
+  deleteCourse: async (root, { _id }) => {
+    let db, info
+    let courses = []
+    try {
+      db = await connectDb()
+      info = await db.collection('courses').deleteOne(
+          {_id: ObjectId(_id)}
+          )
+      courses = await db.collection('courses').find().toArray()
+    } catch (error) {
+      console.error(error)
+    }
+    return info.deletedCount
+      ? `El curso con id ${_id} fue eliminado exitosamente.`
+      : 'No existe el curso con el id indicado';
   }
 }
