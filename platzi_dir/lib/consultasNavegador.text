@@ -1,26 +1,44 @@
-{
-  AllCourses: getCourses{
-    ...CourseFields
+query GetCourse2($course: ID!){
+  getCourse(id: $course){
+    _id
+    title
+    people{
+      _id
+      name
   }
-  Course1: getCourse(id:"62a23d8a405e21dff1d2d402"){
-    ...CourseFields
-    teacher
-  }
-  Course2: getCourse(id:"62a23d8a405e21dff1d2d402"){
-    ...CourseFields
-    topic
-  }
+}
 }
 
-fragment CourseFields on Course{
-  _id
-  title
-  description
-  people{
-    _id
-    name
-  }
-}
+#mutation AddPersonToCourse2($course: ID!, $person : ID!){
+# addPeople(courseID:$course, personID:$person){
+#    _id
+#    title
+#  }
+#}
+
+#{
+#  AllCourses: getCourses{
+#    ...CourseFields
+#  }
+#  Course1: getCourse(id:"62a23d8a405e21dff1d2d402"){
+#    ...CourseFields
+#    teacher
+#  }
+#  Course2: getCourse(id:"62a23d8a405e21dff1d2d402"){
+#    ...CourseFields
+#    topic
+#  }
+#}
+
+#fragment CourseFields on Course{
+#  _id
+#  title
+#  description
+#  people{
+#    _id
+#    name
+#  }
+#}
 
 
 #query Courses{
@@ -83,3 +101,8 @@ fragment CourseFields on Course{
 #  }
 #}
 
+#
+#query variables
+#{
+#  "course": "62a1f60eaf6dd806cb1bc3c3"
+#}
