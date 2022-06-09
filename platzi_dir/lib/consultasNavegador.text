@@ -1,13 +1,20 @@
-query GetCourse2($course: ID!){
-  getCourse(id: $course){
+mutation CreateNewCourse($createinput: CourseInput!){
+  createCourse(input:$createinput){
     _id
     title
-    people{
-      _id
-      name
   }
 }
-}
+
+#query GetCourse2($course: ID!){
+#  getCourse(id: $course){
+#    _id
+#    title
+#    people{
+#      _id
+#      name
+#  }
+#}
+#}
 
 #mutation AddPersonToCourse2($course: ID!, $person : ID!){
 # addPeople(courseID:$course, personID:$person){
