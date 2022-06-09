@@ -1,20 +1,14 @@
-query getCourses{
-  getCourses{
-    _id
-    title
-    teacher
-    description
-    topic
-  }
+query Courses{
+  getCourses{ _id title teacher description topic }
+  getCourse(id:"62a0c0a50179c277e45c145a"){ _id title teacher description topic }
+  
 }
 
-query getStudents{
-  getStudents{
-    _id
-    name
-    email
-  }
+query Students{
+  getStudents{_id name email}
+  getStudent(id:"62a0fe80697970a891e27559"){_id name email}
 }
+
 
 mutation editCourse{
   editCourse(_id:"62a0fdee697970a891e27558", input:{
@@ -29,4 +23,15 @@ mutation editCourse{
 
 mutation deleteCourse{
   deleteCourse(_id : "62a1f60eaf6dd806cb1bc3c5")
+}
+
+mutation AddPersonToCourse{
+  addPeople(courseID:"62a0c0a50179c277e45c145a",
+    				personID:"62a0fe80697970a891e27559") {
+     _id
+    title
+    teacher
+    description
+    topic
+  }
 }

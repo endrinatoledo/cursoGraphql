@@ -4,12 +4,13 @@ type Course {
   teacher: String
   description: String!
   topic: String
+  people: [Student]
 }
 
 type Student{
-  _id :String!
-  name : String!
-  email : String!
+  _id: String!
+  name: String!
+  email: String!
 }
 type Query {
   "Devuelve todos cursos"
@@ -53,6 +54,9 @@ type Mutation {
   createStudent(input: StudentInput!) : Student
     "Editar un estudiante"
   editStudent(_id: ID!,input: StudentEditInput) : Student
-  "Eliminar un curso"
-  deleteCourse(_id: ID!) : String
+  deleteCourse(_id: ID!): Boolean
+  "Elimina un estudiante"
+  deleteStudent(_id: ID!): Boolean
+  "Agrega una persona a un curso"
+  addPeople(courseID: ID!, personID: ID!): Course
 }

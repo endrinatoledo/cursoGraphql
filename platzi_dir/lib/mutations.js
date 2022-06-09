@@ -1,6 +1,6 @@
 'use strict'
 
-const { ObjectId } = require('mongodb')
+const { ObjectID } = require('mongodb')
 const connectDb = require('./db')
 
 module.exports = {
@@ -46,10 +46,10 @@ module.exports = {
     try {
       db = await connectDb()
       await db.collection('courses').updateOne(
-          {_id: ObjectId(_id)},
+          {_id: ObjectID(_id)},
           {$set: input})
         course = await db.collection('courses').findOne(
-          {_id: ObjectId(_id)}
+          {_id: ObjectID(_id)}
       )
     } catch (error) {
       console.error(error)
@@ -64,10 +64,10 @@ module.exports = {
     try {
       db = await connectDb()
       await db.collection('students').updateOne(
-          {_id: ObjectId(_id)},
+          {_id: ObjectID(_id)},
           {$set: input})
           student = await db.collection('students').findOne(
-          {_id: ObjectId(_id)}
+          {_id: ObjectID(_id)}
       )
     } catch (error) {
       console.error(error)
@@ -76,19 +76,58 @@ module.exports = {
     return student
   },
   deleteCourse: async (root, { _id }) => {
-    let db, info
-    let courses = []
+    let db
+
     try {
       db = await connectDb()
-      info = await db.collection('courses').deleteOne(
-          {_id: ObjectId(_id)}
-          )
-      courses = await db.collection('courses').find().toArray()
+      await db.collection('courses').deleteOne(
+        { _id: ObjectID(_id) }
+      )
     } catch (error) {
       console.error(error)
     }
-    return info.deletedCount
-      ? `El curso con id ${_id} fue eliminado exitosamente.`
-      : 'No existe el curso con el id indicado';
+
+    return true
+  },
+  deleteStudent: async (root, {
+    _id
+  }) => {
+    let db
+
+    try {
+      db = await connectDb()
+      await db.collection('student').deleteOne({
+        _id: ObjectID(_id)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+
+    return true
+  },
+  addPeople: async (root,   { courseID, personID }) => {
+    let db
+    let person
+    let course
+
+    try {
+      db = await connectDb()
+      course = await db.collection('courses').findOne({
+        _id: ObjectID(courseID)
+      })
+      person = await db.collection('students').findOne({
+        _id: ObjectID(personID)
+      })
+
+      if (!course || !person) throw new Error('La Persona o el Curso no existe')
+
+      await db.collection('courses').updateOne(
+        { _id: ObjectID(courseID) },
+        { $addToSet: { people: ObjectID(personID) } }
+      )
+    } catch (error) {
+      console.error(error)
+    }
+    return course
   }
 }
