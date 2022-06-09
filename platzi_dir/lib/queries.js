@@ -35,7 +35,7 @@ module.exports = {
 
     return course
   },
-  getStudents: async () => {
+  getPeople: async () => {
     let db
     let students = []
 
@@ -47,7 +47,7 @@ module.exports = {
     }
     return students
   },
-  getStudent: async (root, {
+  getPerson: async (root, {
     id
   }) => {
     let db

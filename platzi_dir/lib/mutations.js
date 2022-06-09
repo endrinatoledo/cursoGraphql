@@ -25,14 +25,14 @@ module.exports = {
 
     return newCourse
   },
-  createStudent: async (root, { input }) => {
+  createPerson: async (root, { input }) => {
 
     let db
     let student
 
     try {
       db = await connectDb()
-      course = await db.collection('students').insertOne(input)
+      student = await db.collection('students').insertOne(input)
       input._id = student.insertedId
     } catch (error) {
       errorHandler(error)
@@ -58,7 +58,7 @@ module.exports = {
 
     return course
   },
-  editStudent: async (root, { _id, input }) => {
+  editPerson: async (root, { _id, input }) => {
     let db
     let student
 

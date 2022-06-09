@@ -1,9 +1,30 @@
-mutation CreateNewCourse($createinput: CourseInput!){
-  createCourse(input:$createinput){
+{
+  getPeople{
     _id
-    title
+    email
+    name
+    ... on Monitor{
+      phone
+    }
+    ... on Student{
+      avatar
+    }
   }
 }
+
+#mutation createNewMonitor($monitorinput: PersonInput!){
+#  createPerson(input:$monitorinput){
+#    _id
+#    name
+#  }
+#}
+
+#mutation CreateNewCourse($createinput: CourseInput!){
+#  createCourse(input:$createinput){
+#    _id
+#    title
+#  }
+#}
 
 #query GetCourse2($course: ID!){
 #  getCourse(id: $course){
