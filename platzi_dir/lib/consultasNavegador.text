@@ -9,6 +9,28 @@ query Students{
   getStudent(id:"62a0fe80697970a891e27559"){_id name email}
 }
 
+query CoursesPeopel{
+  getCourses{
+    _id title teacher description topic 
+    people{
+      _id
+      name
+      email
+    }
+  }
+}
+
+mutation createCourse{
+  createCourse(input:{
+    title:"ejemplo"
+    description: "description ejemplo"
+    topic:"diseño"
+  }){
+    _id
+    title
+    description
+  }
+}
 
 mutation editCourse{
   editCourse(_id:"62a0fdee697970a891e27558", input:{
@@ -35,3 +57,4 @@ mutation AddPersonToCourse{
     topic
   }
 }
+

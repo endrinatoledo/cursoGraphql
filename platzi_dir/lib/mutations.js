@@ -2,6 +2,7 @@
 
 const { ObjectID } = require('mongodb')
 const connectDb = require('./db')
+const errorHandler = require('./errorHandler')
 
 module.exports = {
   createCourse: async (root, { input }) => {
@@ -19,7 +20,7 @@ module.exports = {
       course = await db.collection('courses').insertOne(newCourse)
       newCourse._id = course.insertedId
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
 
     return newCourse
@@ -34,7 +35,7 @@ module.exports = {
       course = await db.collection('students').insertOne(input)
       input._id = student.insertedId
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
 
     return input
@@ -52,7 +53,7 @@ module.exports = {
           {_id: ObjectID(_id)}
       )
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
 
     return course
@@ -70,7 +71,7 @@ module.exports = {
           {_id: ObjectID(_id)}
       )
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
 
     return student
@@ -84,7 +85,7 @@ module.exports = {
         { _id: ObjectID(_id) }
       )
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
 
     return true
@@ -100,7 +101,7 @@ module.exports = {
         _id: ObjectID(_id)
       })
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
 
     return true
@@ -126,7 +127,7 @@ module.exports = {
         { $addToSet: { people: ObjectID(personID) } }
       )
     } catch (error) {
-      console.error(error)
+      errorHandler(error)
     }
     return course
   }
