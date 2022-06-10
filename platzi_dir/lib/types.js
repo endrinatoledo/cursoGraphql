@@ -30,5 +30,16 @@ module.exports = {
       if(person.phone){ return 'Monitor'}
       return 'Student'
     }
+  },
+  GlobalSearch: {
+    __resolveType: (item, context, info) => {
+      if (item.title) {
+        return 'Course'
+      }
+      if (item.phone) {
+        return 'Monitor'
+      }
+      return 'Student'
+    }
   }
 }

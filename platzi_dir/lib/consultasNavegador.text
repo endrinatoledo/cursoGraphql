@@ -1,6 +1,24 @@
 {
-  getCourses{ _id title teacher description topic }
+  searchItems(keyword:"estudiante"){
+    __typename
+    ... on Course{
+      title
+      description
+    }
+    ... on Monitor{
+      name
+      phone
+    }
+    ... on Student{
+      name
+      email
+    }
+  }
 }
+
+#{
+#  getCourses{ _id title teacher description topic }
+#}
 #query getPeopleData($monitor: Boolean!, $avatar: Boolean!){
 #  getPeople{
 #    _id
