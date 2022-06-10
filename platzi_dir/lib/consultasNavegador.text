@@ -1,40 +1,40 @@
 {
-  getPeople{
-    _id
-    email
-    name
-    ... on Monitor{
-      phone
-    }
-    ... on Student{
-      avatar
-    }
-  }
+  getCourses{ _id title teacher description topic }
 }
+#query getPeopleData($monitor: Boolean!, $avatar: Boolean!){
+#  getPeople{
+#    _id
+#    email
+#    name
+#    ... on Monitor @include(if: $monitor) {
+#      phone
+#    }
+#    ... on Student @include(if: $avatar) {
+#      avatar
+#    }
+#
+#  }
+#}
+
+#{
+#  getPeople{
+#    _id
+#    email
+#    name
+#    ... on Monitor{
+#      phone
+#    }
+#    ... on Student{
+#      avatar
+#    }
+#  }
+#}
 
 #mutation createNewMonitor($monitorinput: PersonInput!){
 #  createPerson(input:$monitorinput){
 #    _id
 #    name
 #  }
-#}
-
-#mutation CreateNewCourse($createinput: CourseInput!){
-#  createCourse(input:$createinput){
-#    _id
-#    title
-#  }
-#}
-
-#query GetCourse2($course: ID!){
-#  getCourse(id: $course){
-#    _id
-#    title
-#    people{
-#      _id
-#      name
-#  }
-#}
 #}
 
 #mutation AddPersonToCourse2($course: ID!, $person : ID!){
@@ -129,8 +129,3 @@
 #  }
 #}
 
-#
-#query variables
-#{
-#  "course": "62a1f60eaf6dd806cb1bc3c3"
-#}
